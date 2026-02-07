@@ -1,7 +1,17 @@
-from sqlalchemy import create_engine, text
+import psycopg
 
-def execute_sql(database_url: str, sql: str):
-    engine = create_engine(database_url)
-    with engine.connect() as connection:
-        result = connection.execute(text(sql))
-        return [dict(row) for row in result]
+
+def execute_safe_query(query: str, conn, timeout_ms: int):
+    with psycopg.connect(
+        host=conn.host,
+        port=conn.port,
+        dbname=conn.database,
+        user=conn.user,
+        password=conn.password,
+        options=f"-c statement_timeout={timeout_ms}",
+    ) as connection:
+        with connection.cursor() as cur:
+            cur.execute(query)
+            cols = [desc[0] for desc in cur.description]
+            rows = cur.fetchall()
+            return [dict(zip(cols, row)) for row in rows]

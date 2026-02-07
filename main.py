@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-# from app.core.config import settings
-# from app.api import router as api_router
+
+from app.api.chat import router as chat_router
 
 app = FastAPI(
     title="SQL LLM Agent",
@@ -8,12 +8,13 @@ app = FastAPI(
     version="0.1.0",
 )
 
-# app.include_router(api_router, prefix="/api/v1")
 
 @app.get("/")
 async def root():
     return {"message": "Welcome to SQL LLM Agent API"}
 
+app.include_router(chat_router,prefix="/api/v1")
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

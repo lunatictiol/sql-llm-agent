@@ -1,8 +1,15 @@
 from fastapi import APIRouter
+from pydantic import BaseModel
 
 router = APIRouter()
 
+class ChatRequest(BaseModel):
+    mode: str
+    message: str
+
+
 @router.post("/chat")
-async def chat_endpoint(query: str):
-    # Placeholder for chat logic
-    return {"response": f"Echo: {query}"}
+def chat(req: ChatRequest):
+    # TODO: Implement actual query logic
+    result = "Query mode logic placeholder" 
+    return {"response": result}

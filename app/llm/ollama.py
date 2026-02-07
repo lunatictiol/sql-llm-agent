@@ -1,15 +1,12 @@
-from .base import BaseLLM
-# import httpx
+from langchain_ollama import ChatOllama
+from pathlib import Path
 
-class OllamaLLM(BaseLLM):
-    def __init__(self, base_url: str, model: str):
-        self.base_url = base_url
-        self.model = model
 
-    def generate(self, prompt: str) -> str:
-        # Placeholder for Ollama generation logic
-        return f"Ollama response for: {prompt}"
+def load_prompt(name: str) -> str:
+    return Path(f"app/llm/prompts/{name}.txt").read_text()
 
-    def stream(self, prompt: str):
-        # Placeholder for streaming logic
-        yield f"Streamed response for: {prompt}"
+def build_llm():
+    return ChatOllama(
+        model="qwen2.5-coder",
+        temperature=0.1,
+    )
