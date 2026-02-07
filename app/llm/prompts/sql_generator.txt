@@ -1,0 +1,5 @@
+Given the following schema:
+{{ schema }}
+
+Write a SQL query to answer the question: {{ question }}
+Return ONLY the SQL query.

@@ -1,0 +1,44 @@
+[project]
+name = "sql-llm-agent"
+version = "0.1.0"
+description = "Safe SQL LLM Agent with MCP and RAG"
+requires-python = ">=3.11"
+
+dependencies = [
+  # --- API ---
+  "fastapi",
+  "uvicorn[standard]",
+
+  # --- LLM / LangChain ---
+  "langchain",
+  "langchain-community",
+  "langchain-core",
+  "langchain-text-splitters",
+
+  # --- Ollama ---
+  "ollama",
+
+  # --- Database ---
+  "psycopg[binary]",
+  "sqlalchemy",
+
+  # --- RAG / Embeddings ---
+  "pgvector",
+  "sentence-transformers",
+
+  # --- SQL safety ---
+  "sqlparse",
+
+  # --- Validation / schemas ---
+  "pydantic",
+  "pydantic-settings",
+
+  # --- Utilities ---
+  "python-dotenv",
+  "httpx",
+  "tenacity",
+  "orjson",
+
+  # --- Logging ---
+  "structlog"
+]

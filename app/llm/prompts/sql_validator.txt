@@ -1,0 +1,7 @@
+Review the following SQL query:
+{{ sql }}
+
+Does it look safe and correct for the given schema?
+{{ schema }}
+
+If yes, return "YES". If no, explain why.
