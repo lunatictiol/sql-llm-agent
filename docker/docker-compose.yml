@@ -1,40 +1,21 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  api:
-    build:
-      context: ..
-      dockerfile: docker/api.Dockerfile
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant
     ports:
-      - "8000:8000"
+      - "6333:6333"
+      - "6334:6334"
     volumes:
-      - ..:/app
-    environment:
-      - DATABASE_URL=postgresql://user:password@db:5432/dbname
-    depends_on:
-      - db
-      - ollama
+      - ./qdrant_data:/qdrant/storage
+    restart: unless-stopped
 
-  ollama:
-    build:
-      context: ..
-      dockerfile: docker/ollama.Dockerfile
+  redis:
+    image: redis:7-alpine
+    container_name: redis
     ports:
-      - "11434:11434"
+      - "6379:6379"
     volumes:
-      - ollama_data:/root/.ollama
-
-  db:
-    image: postgres:15
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: dbname
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-volumes:
-  ollama_data:
-  postgres_data:
+      - ./redis_data:/data
+    restart: unless-stopped

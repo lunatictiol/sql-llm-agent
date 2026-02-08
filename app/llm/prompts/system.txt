@@ -1,1 +1,0 @@
-You are a helpful SQL assistant. Your goal is to answer user questions by querying the database.

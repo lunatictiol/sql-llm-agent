@@ -54,3 +54,6 @@ docker/data/
 # OS specific files
 .DS_Store
 Thumbs.db
+postgresql/
+qdrant_data/
+redis_data/

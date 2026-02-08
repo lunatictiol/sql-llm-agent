@@ -1,15 +1,12 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-
+from app.orchestrator.query_pipline import run_query_pipeline
 router = APIRouter()
-
-class ChatRequest(BaseModel):
-    mode: str
-    message: str
+class QueryRequest(BaseModel):
+    question: str
+    schema_id: str
 
 
 @router.post("/chat")
-def chat(req: ChatRequest):
-    # TODO: Implement actual query logic
-    result = "Query mode logic placeholder" 
-    return {"response": result}
+def generate_sql(req: QueryRequest):
+    return run_query_pipeline(req.question,req.schema_id)

@@ -1,8 +1,26 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
+
+from app.rag.pipline import store_schema_document
 
 router = APIRouter()
 
-@router.post("/query")
-async def execute_query(nl_query: str):
-    # Placeholder for NL -> SQL logic
-    return {"sql": "SELECT * FROM placeholder", "result": []}
+class SchemaRequest(BaseModel):
+    url: str
+
+
+    
+@router.post("/schema")
+def store_schema(req: SchemaRequest):
+    try:
+        schema_id=store_schema_document(req.url)
+        return {
+            "message": "Schema stored successfully",
+            "schema_id": schema_id,
+        }
+    except Exception as e:
+        raise HTTPException(
+            status_code=400,
+            detail=str(e),
+        )
+

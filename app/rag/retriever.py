@@ -1,7 +1,14 @@
-class Retriever:
-    def __init__(self, index):
-        self.index = index
+from langchain.tools import tool
 
-    def retrieve(self, query: str, top_k: int = 5):
-        # Placeholder
-        return ["Document 1", "Document 2"]
+from app.rag.qdrant_client import get_vector_store
+
+@tool(response_format="content_and_artifact")
+def retrieve_context(query: str):
+    """Retrieve information to help answer a query."""
+    vector_store = get_vector_store()
+    retrieved_docs = vector_store.similarity_search(query, k=2)
+    serialized = "\n\n".join(
+        (f"Source: {doc.metadata}\nContent: {doc.page_content}")
+        for doc in retrieved_docs
+    )
+    return serialized, retrieved_docs

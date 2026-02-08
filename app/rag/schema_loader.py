@@ -1,3 +1,7 @@
+from app.db.introspection import introspect_schema
+
 def load_schema(db_connection):
-    # Placeholder for loading DB schema
-    return {"tables": ["users", "orders"]}
+    try:
+        return introspect_schema(db_connection)
+    except Exception as e:
+        raise e

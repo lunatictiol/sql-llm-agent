@@ -35,4 +35,7 @@ dependencies = [
   "structlog",
   "structlog",
   "langchain-ollama>=1.0.1",
+  "bs4>=0.0.2",
+  "langchain-qdrant>=1.1.0",
+  "redis>=7.1.0",
 ]
