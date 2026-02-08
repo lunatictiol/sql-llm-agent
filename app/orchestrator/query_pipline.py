@@ -9,7 +9,7 @@ def run_query_pipeline(user_question: str,schema_id:str) -> dict:
     schema_text = redis_client.get(f"schema:{schema_id}")
     # 4. Generate SQL via LLM
     llm = SQLAgentExecutor()
-    sql = llm.generate_sql(user_question)
+    sql = llm.generate_sql(user_question=user_question)
 
 
     # 6. Validate SQL
@@ -22,9 +22,5 @@ def run_query_pipeline(user_question: str,schema_id:str) -> dict:
         )
     except SQLValidationError as e:
         return {"error": str(e)}
-
-    response = json.loads(sql)    
-    
-    
-
-    return {"sql":response}
+   
+    return {"sql":sql}

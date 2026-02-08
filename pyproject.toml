@@ -38,4 +38,7 @@ dependencies = [
   "bs4>=0.0.2",
   "langchain-qdrant>=1.1.0",
   "redis>=7.1.0",
+  "streamlit>=1.54.0",
+  "requests>=2.32.5",
+  "dspy>=3.1.3",
 ]

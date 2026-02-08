@@ -1,11 +1,11 @@
 from langchain.agents import create_agent
 from langchain_core.messages import HumanMessage
 from langchain_ollama import ChatOllama
-from app.llm.utils import load_prompt
+from app.llm.utils import load_prompt,extract_ai_content
 from app.rag.retriever import retrieve_context
 from langchain_core.messages import AIMessage
 from app.llm.models import ModelType
-from app.llm.utils import extract_ai_content
+
 class SQLAgentExecutor:
     """
     Agent-based SQL generator/executor.
